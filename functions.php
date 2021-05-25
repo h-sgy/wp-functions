@@ -3,11 +3,18 @@
 function add_css_js() {
 	//CSSの読み込みはここから
 	wp_enqueue_style('style', get_template_directory_uri().'/assets/css/style.css', array(), '1.0', 'all' );
-    //JavaScriptの読み込みはここから
-    wp_enqueue_script('main', get_template_directory_uri().'/assets/js/main.js', array('jquery'), '1.0', true);
+  //JavaScriptの読み込みはここから
+  wp_enqueue_script('main', get_template_directory_uri().'/assets/js/main.js', array('jquery'), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'add_css_js');
 
+function add_admin_css_js() {
+	// 読み込むスクリプトファイル(※依存関係:jquery)
+	wp_enqueue_script('custom_js', get_template_directory_uri() . '/inc/js/custom.js', array('jquery'));
+	// 読み込むCSSファイル
+	wp_enqueue_style('custom_css', get_template_directory_uri() . '/inc/css/custom.css');
+}
+add_action( 'admin_enqueue_scripts', 'add_admin_css_js' );
 
 // カスタム投稿
 add_action( 'init', 'register_custom_post_types' );
