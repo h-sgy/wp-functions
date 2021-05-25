@@ -47,7 +47,7 @@ function register_custom_post_types() {
       'capability_type' => 'post',
     );
   
-    register_post_type( 'cameras', $args );
+    register_post_type( 'news', $args );
 }
 
 //ブログのカスタムタクソノミー
@@ -76,8 +76,8 @@ function create_taxonomies() {
 // カスタム投稿を数字ベースにする
 add_filter( 'post_type_link', '_post_type_link', 1, 2 );
 function _post_type_link( $link, $post ){
-    if ( 'cameras' === $post->post_type ) {
-        return home_url( '/cameras/' . $post->ID );
+    if ( 'news' === $post->post_type ) {
+        return home_url( '/news/' . $post->ID );
     } else {
         return $link;
     }
@@ -85,14 +85,14 @@ function _post_type_link( $link, $post ){
 add_filter( 'rewrite_rules_array', '_rewrite_rules_array' );
 function _rewrite_rules_array( $rules ) {
     $new_rules = array( 
-        'cameras/([0-9]+)/?$' => 'index.php?post_type=cameras&p=$matches[1]',
+        'news/([0-9]+)/?$' => 'index.php?post_type=news&p=$matches[1]',
     );
     
     return $new_rules + $rules;
 }
 
 //アイキャッチ有効化
-add_theme_support( 'post-thumbnails', array( 'cameras' ) );
+add_theme_support( 'post-thumbnails', array( 'news' ) );
 //タイトル有効化
 add_theme_support( 'title-tag' );
 
