@@ -129,3 +129,12 @@ function remove_menus(){
     // remove_menu_page( 'tools.php' ); //ツールメニュー
     // remove_menu_page( 'options-general.php' ); //設定メニュー
 }
+
+
+// ACFを使うとデフォルトのカスタムフィールドが無効になるため表示できるようにする
+function _acf_init() {
+    if (function_exists('acf_update_setting')) {
+      acf_update_setting('remove_wp_meta_box', false);
+    }
+   }
+add_action('acf/init', '_acf_init');
